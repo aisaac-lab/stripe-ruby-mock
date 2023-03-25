@@ -1222,7 +1222,7 @@ module StripeMock
           capture_method: "automatic",
           charges: {
               object: "list",
-              data: [],
+              data: [self.mock_charge],
               has_more: false,
               total_count: 1,
               url: "/v1/charges?payment_intent=pi_1EwXFB2eZvKYlo2CggNnFBo8"
