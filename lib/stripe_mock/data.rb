@@ -1239,7 +1239,7 @@ module StripeMock
           metadata: {},
           # next_action: { redirect_to_url: "https://ticketjam.jp/stripe_ruby_mock_redirect_to_url" },
           next_action: nil,
-          last_charge: StripeMock::Data.mock_charge,
+          latest_charge: StripeMock::Data.mock_charge,
           on_behalf_of: nil,
           payment_method: nil,
           payment_method_types: [
