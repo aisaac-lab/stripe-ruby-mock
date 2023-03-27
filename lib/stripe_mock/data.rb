@@ -1,3 +1,5 @@
+require 'json'
+
 module StripeMock
   module Data
 
@@ -1206,55 +1208,11 @@ module StripeMock
     end
 
     def self.mock_payment_intent(params = {})
-      payment_intent_id = params[:id] || "pi_1EwXFB2eZvKYlo2CggNnFBo8"
-      amount = params[:amount] || 49900
-      currency = params[:currency] || StripeMock.default_currency
-      {
-          id: payment_intent_id,
-          object: "payment_intent",
-          amount: amount,
-          amount_capturable: 0,
-          amount_received: 0,
-          application: nil,
-          application_fee_amount: nil,
-          canceled_at: nil,
-          cancellation_reason: nil,
-          capture_method: "automatic",
-          charges: {
-              object: "list",
-              data: [],
-              has_more: false,
-              total_count: 1,
-              url: "/v1/charges?payment_intent=pi_1EwXFB2eZvKYlo2CggNnFBo8"
-          },
-          client_secret: "pi_1EwXFB2eZvKYlo2CggNnFBo8_secret_vOMkpqZu8ca7hxhfiO80tpT3v",
-          confirmation_method: "manual",
-          created: 1563208901,
-          currency: currency,
-          customer: nil,
-          description: nil,
-          invoice: nil,
-          last_payment_error: nil,
-          livemode: false,
-          metadata: {},
-          # next_action: { redirect_to_url: "https://ticketjam.jp/stripe_ruby_mock_redirect_to_url" },
-          next_action: nil,
-          latest_charge: StripeMock::Data.mock_charge,
-          on_behalf_of: nil,
-          payment_method: nil,
-          payment_method_types: [
-              "card"
-          ],
-          receipt_email: nil,
-          review: nil,
-          setup_future_usage: nil,
-          shipping: nil,
-          source: nil,
-          statement_descriptor: nil,
-          status: "requires_action",
-          transfer_data: nil,
-          transfer_group: nil
-      }.merge(params)
+      # 実際の返り値を再現するために以下のコードを実行した結果を、raw_resに格納
+      # cd ApiClient::Stripe.new('KEY_01')
+      # ::Stripe::PaymentIntent.retrieve({ id: 'pi_3Mq7fuGQmnzXL1kG260bzTgG', expand: [:latest_charge] }, stripe_args).to_json
+      raw_res = "{\"id\":\"pi_3Mq7fuGQmnzXL1kG260bzTgG\",\"object\":\"payment_intent\",\"amount\":17513,\"amount_capturable\":17513,\"amount_details\":{\"tip\":{}},\"amount_received\":0,\"application\":null,\"application_fee_amount\":null,\"automatic_payment_methods\":null,\"canceled_at\":null,\"cancellation_reason\":null,\"capture_method\":\"manual\",\"client_secret\":\"pi_3Mq7fuGQmnzXL1kG260bzTgG_secret_mi1TgZAavqt7lhtGDbywYqI40\",\"confirmation_method\":\"automatic\",\"created\":1679891334,\"currency\":\"jpy\",\"customer\":\"cus_NbKKTV3C6tudfm\",\"description\":\"チケットジャム\",\"invoice\":null,\"last_payment_error\":null,\"latest_charge\":{\"id\":\"ch_3Mq7fuGQmnzXL1kG2mfEGXJQ\",\"object\":\"charge\",\"amount\":17513,\"amount_captured\":0,\"amount_refunded\":0,\"application\":null,\"application_fee\":null,\"application_fee_amount\":null,\"balance_transaction\":null,\"billing_details\":{\"address\":{\"city\":null,\"country\":null,\"line1\":null,\"line2\":null,\"postal_code\":null,\"state\":null},\"email\":null,\"name\":null,\"phone\":null},\"calculated_statement_descriptor\":\"Stripe\",\"captured\":false,\"created\":1679891335,\"currency\":\"jpy\",\"customer\":\"cus_NbKKTV3C6tudfm\",\"description\":\"チケットジャム\",\"destination\":null,\"dispute\":null,\"disputed\":false,\"failure_balance_transaction\":null,\"failure_code\":null,\"failure_message\":null,\"fraud_details\":{},\"invoice\":null,\"livemode\":false,\"metadata\":{\"event_group_id\":\"1242\",\"is_requested_3ds\":\"false\"},\"on_behalf_of\":null,\"order\":null,\"outcome\":{\"network_status\":\"approved_by_network\",\"reason\":null,\"risk_level\":\"normal\",\"risk_score\":12,\"seller_message\":\"Payment complete.\",\"type\":\"authorized\"},\"paid\":true,\"payment_intent\":\"pi_3Mq7fuGQmnzXL1kG260bzTgG\",\"payment_method\":\"card_1Mq7ftGQmnzXL1kGp1uVXSlC\",\"payment_method_details\":{\"card\":{\"brand\":\"amex\",\"checks\":{\"address_line1_check\":null,\"address_postal_code_check\":null,\"cvc_check\":null},\"country\":\"US\",\"exp_month\":3,\"exp_year\":2024,\"fingerprint\":\"Rm8uJjslGCF14HMU\",\"funding\":\"credit\",\"installments\":null,\"last4\":\"0005\",\"mandate\":null,\"network\":\"amex\",\"three_d_secure\":null,\"wallet\":null},\"type\":\"card\"},\"receipt_email\":null,\"receipt_number\":null,\"receipt_url\":\"https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xTXE0bDFHUW1uelhMMWtHKLXlhKEGMgaaBpVkzSc6LBakB7KkONkrd1_8j15P-r6y-amMq7PKoNm7oVlPk2Pyq3TEjlHZCVZqFch_\",\"refunded\":false,\"review\":null,\"shipping\":null,\"source\":{\"id\":\"card_1Mq7ftGQmnzXL1kGp1uVXSlC\",\"object\":\"card\",\"address_city\":null,\"address_country\":null,\"address_line1\":null,\"address_line1_check\":null,\"address_line2\":null,\"address_state\":null,\"address_zip\":null,\"address_zip_check\":null,\"brand\":\"American Express\",\"country\":\"US\",\"customer\":\"cus_NbKKTV3C6tudfm\",\"cvc_check\":null,\"dynamic_last4\":null,\"exp_month\":3,\"exp_year\":2024,\"fingerprint\":\"Rm8uJjslGCF14HMU\",\"funding\":\"credit\",\"last4\":\"0005\",\"metadata\":{},\"name\":null,\"tokenization_method\":null},\"source_transfer\":null,\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"succeeded\",\"transfer_data\":null,\"transfer_group\":null},\"livemode\":false,\"metadata\":{\"event_group_id\":\"1242\",\"is_requested_3ds\":\"false\"},\"next_action\":null,\"on_behalf_of\":null,\"payment_method\":null,\"payment_method_options\":{\"card\":{\"installments\":null,\"mandate_options\":null,\"network\":null,\"request_three_d_secure\":\"automatic\"}},\"payment_method_types\":[\"card\"],\"processing\":null,\"receipt_email\":null,\"review\":null,\"setup_future_usage\":null,\"shipping\":null,\"source\":\"card_1Mq7ftGQmnzXL1kGp1uVXSlC\",\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"requires_capture\",\"transfer_data\":null,\"transfer_group\":null}"
+      JSON.parse(raw_res, symbolize_names: true).merge(params)
     end
 
     def self.mock_payment_method(params = {})
