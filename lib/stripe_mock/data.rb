@@ -1237,8 +1237,7 @@ module StripeMock
           last_payment_error: nil,
           livemode: false,
           metadata: {},
-          # next_action: { redirect_to_url: "https://ticketjam.jp/stripe_ruby_mock_redirect_to_url" },
-          next_action: nil,
+          next_action: { redirect_to_url: "https://ticketjam.jp/stripe_ruby_mock_redirect_to_url" },
           on_behalf_of: nil,
           payment_method: nil,
           payment_method_types: [
